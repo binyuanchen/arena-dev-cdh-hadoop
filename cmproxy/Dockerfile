@@ -1,4 +1,4 @@
-FROM centos:centos7.2.1511
+FROM centos:centos7
 MAINTAINER Binyuan Chen "binyuanchen@gmail.com"
 
 ENV PATH $PATH:/usr/local/nginx/sbin
