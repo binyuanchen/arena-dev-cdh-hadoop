@@ -1,0 +1,895 @@
+{
+  "allHostsConfig": {
+    "items": []
+  },
+  "clusters": [
+    {
+      "displayName": "REPLACE_CLUSTER_DISPLAY_NAME",
+      "fullVersion": "REPLACE_FULLCDHVERSION",
+      "name": "Cluster",
+      "parcels": [
+        {
+          "clusterRef": {
+            "clusterName": "REPLACE_CLUSTER_DISPLAY_NAME"
+          },
+          "product": "CDH",
+          "stage": "DISTRIBUTED",
+          "version": "REPLACE_PARCELNAME"
+        },
+        {
+          "clusterRef": {
+            "clusterName": "REPLACE_CLUSTER_DISPLAY_NAME"
+          },
+          "product": "CDH",
+          "stage": "ACTIVATED",
+          "version": "REPLACE_PARCELNAME"
+        }
+      ],
+      "services": [
+        {
+          "config": {
+            "items": [
+              {
+                "name": "core_site_safety_valve",
+                "value": "<property><name>hadoop.proxyuser.REPLACE_APP_SUPERUSER_NAME.groups</name><value>*</value></property><property><name>hadoop.proxyuser.REPLACE_APP_SUPERUSER_NAME.hosts</name><value>*</value></property>"
+              },
+              {
+                "name": "dfs_client_use_datanode_hostname",
+                "value": "true"
+              },
+              {
+                "name": "dfs_replication",
+                "value": "1"
+              },
+              {
+                "name": "hdfs_under_replicated_blocks_thresholds",
+                "value": "{\"warning\":90,\"critical\":100}"
+              },
+              {
+                "name": "rm_dirty",
+                "value": "true"
+              },
+              {
+                "name": "zookeeper_service",
+                "value": "zookeeper"
+              }
+            ]
+          },
+          "displayName": "HDFS",
+          "name": "hdfs",
+          "replicationSchedules": [],
+          "roleConfigGroups": [
+            {
+              "base": true,
+              "config": {
+                "items": [
+                  {
+                    "name": "balancer_java_heapsize",
+                    "value": "268435456"
+                  }
+                ]
+              },
+              "displayName": "Balancer Base Group",
+              "name": "hdfs-BALANCER-BASE",
+              "roleType": "BALANCER",
+              "serviceRef": {
+                "clusterName": "REPLACE_CLUSTER_DISPLAY_NAME",
+                "serviceName": "hdfs"
+              }
+            },
+            {
+              "base": true,
+              "config": {
+                "items": [
+                  {
+                    "name": "datanode_java_heapsize",
+                    "value": "536870912"
+                  },
+                  {
+                    "name": "dfs_data_dir_list",
+                    "value": "/dfs/dn"
+                  },
+                  {
+                    "name": "dfs_datanode_failed_volumes_tolerated",
+                    "value": "0"
+                  },
+                  {
+                    "name": "dfs_datanode_max_locked_memory",
+                    "value": "953155584"
+                  },
+                  {
+                    "name": "log_directory_free_space_absolute_thresholds",
+                    "value": "{\"warning\":2147483648,\"critical\":1073741824}"
+                  }
+                ]
+              },
+              "displayName": "DataNode Base Group",
+              "name": "hdfs-DATANODE-BASE",
+              "roleType": "DATANODE",
+              "serviceRef": {
+                "clusterName": "REPLACE_CLUSTER_DISPLAY_NAME",
+                "serviceName": "hdfs"
+              }
+            },
+            {
+              "base": true,
+              "config": {
+                "items": [
+                  {
+                    "name": "log_directory_free_space_absolute_thresholds",
+                    "value": "{\"warning\":2147483648,\"critical\":1073741824}"
+                  },
+                  {
+                    "name": "max_log_backup_index",
+                    "value": "11"
+                  }
+                ]
+              },
+              "displayName": "Failover Controller Base Group",
+              "name": "hdfs-FAILOVERCONTROLLER-BASE",
+              "roleType": "FAILOVERCONTROLLER",
+              "serviceRef": {
+                "clusterName": "REPLACE_CLUSTER_DISPLAY_NAME",
+                "serviceName": "hdfs"
+              }
+            },
+            {
+              "base": true,
+              "config": {
+                "items": [
+                  {
+                    "name": "dfs_client_use_trash",
+                    "value": "true"
+                  }
+                ]
+              },
+              "displayName": "Gateway Base Group",
+              "name": "hdfs-GATEWAY-BASE",
+              "roleType": "GATEWAY",
+              "serviceRef": {
+                "clusterName": "REPLACE_CLUSTER_DISPLAY_NAME",
+                "serviceName": "hdfs"
+              }
+            },
+            {
+              "base": true,
+              "config": {
+                "items": [
+                  {
+                    "name": "log_directory_free_space_absolute_thresholds",
+                    "value": "{\"warning\":2147483648,\"critical\":1073741824}"
+                  },
+                  {
+                    "name": "max_log_backup_index",
+                    "value": "1"
+                  }
+                ]
+              },
+              "displayName": "HttpFS Base Group",
+              "name": "hdfs-HTTPFS-BASE",
+              "roleType": "HTTPFS",
+              "serviceRef": {
+                "clusterName": "REPLACE_CLUSTER_DISPLAY_NAME",
+                "serviceName": "hdfs"
+              }
+            },
+            {
+              "base": true,
+              "config": {
+                "items": [
+                  {
+                    "name": "log_directory_free_space_absolute_thresholds",
+                    "value": "{\"warning\":2147483648,\"critical\":1073741824}"
+                  },
+                  {
+                    "name": "max_log_backup_index",
+                    "value": "1"
+                  }
+                ]
+              },
+              "displayName": "JournalNode Base Group",
+              "name": "hdfs-JOURNALNODE-BASE",
+              "roleType": "JOURNALNODE",
+              "serviceRef": {
+                "clusterName": "REPLACE_CLUSTER_DISPLAY_NAME",
+                "serviceName": "hdfs"
+              }
+            },
+            {
+              "base": true,
+              "config": {
+                "items": [
+                  {
+                    "name": "dfs_name_dir_list",
+                    "value": "/dfs/nn"
+                  },
+                  {
+                    "name": "dfs_namenode_servicerpc_address",
+                    "value": "8022"
+                  },
+                  {
+                    "name": "log_directory_free_space_absolute_thresholds",
+                    "value": "{\"warning\":2147483648,\"critical\":1073741824}"
+                  },
+                  {
+                    "name": "max_log_backup_index",
+                    "value": "1"
+                  },
+                  {
+                    "name": "namenode_java_heapsize",
+                    "value": "536870912"
+                  }
+                ]
+              },
+              "displayName": "NameNode Base Group",
+              "name": "hdfs-NAMENODE-BASE",
+              "roleType": "NAMENODE",
+              "serviceRef": {
+                "clusterName": "REPLACE_CLUSTER_DISPLAY_NAME",
+                "serviceName": "hdfs"
+              }
+            },
+            {
+              "base": true,
+              "config": {
+                "items": [
+                  {
+                    "name": "log_directory_free_space_absolute_thresholds",
+                    "value": "{\"warning\":2147483648,\"critical\":1073741824}"
+                  },
+                  {
+                    "name": "max_log_backup_index",
+                    "value": "1"
+                  }
+                ]
+              },
+              "displayName": "NFS Gateway Base Group",
+              "name": "hdfs-NFSGATEWAY-BASE",
+              "roleType": "NFSGATEWAY",
+              "serviceRef": {
+                "clusterName": "REPLACE_CLUSTER_DISPLAY_NAME",
+                "serviceName": "hdfs"
+              }
+            },
+            {
+              "base": true,
+              "config": {
+                "items": [
+                  {
+                    "name": "fs_checkpoint_dir_list",
+                    "value": "/dfs/snn"
+                  },
+                  {
+                    "name": "log_directory_free_space_absolute_thresholds",
+                    "value": "{\"warning\":2147483648,\"critical\":1073741824}"
+                  },
+                  {
+                    "name": "max_log_backup_index",
+                    "value": "1"
+                  },
+                  {
+                    "name": "secondary_namenode_java_heapsize",
+                    "value": "536870912"
+                  }
+                ]
+              },
+              "displayName": "SecondaryNameNode Base Group",
+              "name": "hdfs-SECONDARYNAMENODE-BASE",
+              "roleType": "SECONDARYNAMENODE",
+              "serviceRef": {
+                "clusterName": "REPLACE_CLUSTER_DISPLAY_NAME",
+                "serviceName": "hdfs"
+              }
+            }
+          ],
+          "roles": [
+            {
+              "config": {
+                "items": []
+              },
+              "hostRef": {
+                "hostId": "REPLACE_CMSERVER_ID"
+              },
+              "name": "hdfs-BALANCER",
+              "roleConfigGroupRef": {
+                "roleConfigGroupName": "hdfs-BALANCER-BASE"
+              },
+              "type": "BALANCER"
+            },
+            {
+              "config": {
+                "items": []
+              },
+              "hostRef": {
+                "hostId": "REPLACE_CMSERVER_ID"
+              },
+              "name": "hdfs-DATANODE",
+              "roleConfigGroupRef": {
+                "roleConfigGroupName": "hdfs-DATANODE-BASE"
+              },
+              "type": "DATANODE"
+            },
+            {
+              "config": {
+                "items": []
+              },
+              "hostRef": {
+                "hostId": "REPLACE_CMAGENT_ID1"
+              },
+              "name": "hdfs-DATANODE1",
+              "roleConfigGroupRef": {
+                "roleConfigGroupName": "hdfs-DATANODE-BASE"
+              },
+              "type": "DATANODE"
+            },
+            {
+              "config": {
+                "items": []
+              },
+              "hostRef": {
+                "hostId": "REPLACE_CMAGENT_ID2"
+              },
+              "name": "hdfs-DATANODE2",
+              "roleConfigGroupRef": {
+                "roleConfigGroupName": "hdfs-DATANODE-BASE"
+              },
+              "type": "DATANODE"
+            },
+            {
+              "config": {
+                "items": []
+              },
+              "hostRef": {
+                "hostId": "REPLACE_CMSERVER_ID"
+              },
+              "name": "hdfs-NAMENODE",
+              "roleConfigGroupRef": {
+                "roleConfigGroupName": "hdfs-NAMENODE-BASE"
+              },
+              "type": "NAMENODE"
+            },
+            {
+              "config": {
+                "items": []
+              },
+              "hostRef": {
+                "hostId": "REPLACE_CMSERVER_ID"
+              },
+              "name": "hdfs-SECONDARYNAMENODE",
+              "roleConfigGroupRef": {
+                "roleConfigGroupName": "hdfs-SECONDARYNAMENODE-BASE"
+              },
+              "type": "SECONDARYNAMENODE"
+            }
+          ],
+          "snapshotPolicies": [],
+          "type": "HDFS"
+        },
+        {
+          "config": {
+            "items": [
+              {
+                "name": "hdfs_service",
+                "value": "hdfs"
+              },
+              {
+                "name": "rm_dirty",
+                "value": "true"
+              },
+              {
+                "name": "zookeeper_service",
+                "value": "zookeeper"
+              }
+            ]
+          },
+          "displayName": "HBase",
+          "name": "hbase",
+          "roleConfigGroups": [
+            {
+              "base": true,
+              "config": {
+                "items": []
+              },
+              "displayName": "Gateway Base Group",
+              "name": "hbase-GATEWAY-BASE",
+              "roleType": "GATEWAY",
+              "serviceRef": {
+                "clusterName": "REPLACE_CLUSTER_DISPLAY_NAME",
+                "serviceName": "hbase"
+              }
+            },
+            {
+              "base": true,
+              "config": {
+                "items": [
+                  {
+                    "name": "hbase_restserver_java_heapsize",
+                    "value": "134217728"
+                  },
+                  {
+                    "name": "max_log_backup_index",
+                    "value": "1"
+                  }
+                ]
+              },
+              "displayName": "HBase REST Server Base Group",
+              "name": "hbase-HBASERESTSERVER-BASE",
+              "roleType": "HBASERESTSERVER",
+              "serviceRef": {
+                "clusterName": "REPLACE_CLUSTER_DISPLAY_NAME",
+                "serviceName": "hbase"
+              }
+            },
+            {
+              "base": true,
+              "config": {
+                "items": [
+                  {
+                    "name": "hbase_thriftserver_java_heapsize",
+                    "value": "134217728"
+                  },
+                  {
+                    "name": "max_log_backup_index",
+                    "value": "1"
+                  }
+                ]
+              },
+              "displayName": "HBase Thrift Server Base Group",
+              "name": "hbase-HBASETHRIFTSERVER-BASE",
+              "roleType": "HBASETHRIFTSERVER",
+              "serviceRef": {
+                "clusterName": "REPLACE_CLUSTER_DISPLAY_NAME",
+                "serviceName": "hbase"
+              }
+            },
+            {
+              "base": true,
+              "config": {
+                "items": [
+                  {
+                    "name": "hbase_master_java_heapsize",
+                    "value": "536870912"
+                  },
+                  {
+                    "name": "max_log_backup_index",
+                    "value": "1"
+                  }
+                ]
+              },
+              "displayName": "Master Base Group",
+              "name": "hbase-MASTER-BASE",
+              "roleType": "MASTER",
+              "serviceRef": {
+                "clusterName": "REPLACE_CLUSTER_DISPLAY_NAME",
+                "serviceName": "hbase"
+              }
+            },
+            {
+              "base": true,
+              "config": {
+                "items": [
+                  {
+                    "name": "hbase_regionserver_java_heapsize",
+                    "value": "536870912"
+                  },
+                  {
+                    "name": "max_log_backup_index",
+                    "value": "1"
+                  }
+                ]
+              },
+              "displayName": "RegionServer Base Group",
+              "name": "hbase-REGIONSERVER-BASE",
+              "roleType": "REGIONSERVER",
+              "serviceRef": {
+                "clusterName": "REPLACE_CLUSTER_DISPLAY_NAME",
+                "serviceName": "hbase"
+              }
+            }
+          ],
+          "roles": [
+            {
+              "config": {
+                "items": []
+              },
+              "hostRef": {
+                "hostId": "REPLACE_CMSERVER_ID"
+              },
+              "name": "hbase-HBASERESTSERVER",
+              "roleConfigGroupRef": {
+                "roleConfigGroupName": "hbase-HBASERESTSERVER-BASE"
+              },
+              "type": "HBASERESTSERVER"
+            },
+            {
+              "config": {
+                "items": []
+              },
+              "hostRef": {
+                "hostId": "REPLACE_CMSERVER_ID"
+              },
+              "name": "hbase-HBASETHRIFTSERVER",
+              "roleConfigGroupRef": {
+                "roleConfigGroupName": "hbase-HBASETHRIFTSERVER-BASE"
+              },
+              "type": "HBASETHRIFTSERVER"
+            },
+            {
+              "config": {
+                "items": []
+              },
+              "hostRef": {
+                "hostId": "REPLACE_CMSERVER_ID"
+              },
+              "name": "hbase-MASTER",
+              "roleConfigGroupRef": {
+                "roleConfigGroupName": "hbase-MASTER-BASE"
+              },
+              "type": "MASTER"
+            },
+            {
+              "config": {
+                "items": []
+              },
+              "hostRef": {
+                "hostId": "REPLACE_CMSERVER_ID"
+              },
+              "name": "hbase-REGIONSERVER",
+              "roleConfigGroupRef": {
+                "roleConfigGroupName": "hbase-REGIONSERVER-BASE"
+              },
+              "type": "REGIONSERVER"
+            },
+            {
+              "config": {
+                "items": []
+              },
+              "hostRef": {
+                "hostId": "REPLACE_CMAGENT_ID1"
+              },
+              "name": "hbase-REGIONSERVER1",
+              "roleConfigGroupRef": {
+                "roleConfigGroupName": "hbase-REGIONSERVER-BASE"
+              },
+              "type": "REGIONSERVER"
+            },
+            {
+              "config": {
+                "items": []
+              },
+              "hostRef": {
+                "hostId": "REPLACE_CMAGENT_ID2"
+              },
+              "name": "hbase-REGIONSERVER2",
+              "roleConfigGroupRef": {
+                "roleConfigGroupName": "hbase-REGIONSERVER-BASE"
+              },
+              "type": "REGIONSERVER"
+            }
+          ],
+          "snapshotPolicies": [],
+          "type": "HBASE"
+        },
+        {
+          "config": {
+            "items": []
+          },
+          "displayName": "ZooKeeper",
+          "name": "zookeeper",
+          "roleConfigGroups": [
+            {
+              "base": true,
+              "config": {
+                "items": [
+                  {
+                    "name": "maxSessionTimeout",
+                    "value": "60000"
+                  },
+                  {
+                    "name": "zookeeper_server_java_heapsize",
+                    "value": "268435456"
+                  }
+                ]
+              },
+              "displayName": "Server Base Group",
+              "name": "zookeeper-SERVER-BASE",
+              "roleType": "SERVER",
+              "serviceRef": {
+                "clusterName": "REPLACE_CLUSTER_DISPLAY_NAME",
+                "serviceName": "zookeeper"
+              }
+            }
+          ],
+          "roles": [
+            {
+              "config": {
+                "items": [
+                  {
+                    "name": "serverId",
+                    "value": "1"
+                  }
+                ]
+              },
+              "hostRef": {
+                "hostId": "REPLACE_CMSERVER_ID"
+              },
+              "name": "zookeeper-SERVER",
+              "roleConfigGroupRef": {
+                "roleConfigGroupName": "zookeeper-SERVER-BASE"
+              },
+              "type": "SERVER"
+            },
+            {
+              "config": {
+                "items": [
+                  {
+                    "name": "serverId",
+                    "value": "2"
+                  }
+                ]
+              },
+              "hostRef": {
+                "hostId": "REPLACE_CMAGENT_ID1"
+              },
+              "name": "zookeeper-SERVER1",
+              "roleConfigGroupRef": {
+                "roleConfigGroupName": "zookeeper-SERVER-BASE"
+              },
+              "type": "SERVER"
+            },
+            {
+              "config": {
+                "items": [
+                  {
+                    "name": "serverId",
+                    "value": "3"
+                  }
+                ]
+              },
+              "hostRef": {
+                "hostId": "REPLACE_CMAGENT_ID2"
+              },
+              "name": "zookeeper-SERVER2",
+              "roleConfigGroupRef": {
+                "roleConfigGroupName": "zookeeper-SERVER-BASE"
+              },
+              "type": "SERVER"
+            }
+          ],
+          "type": "ZOOKEEPER"
+        }
+      ],
+      "version": "REPLACE_CDH_VERSION"
+    }
+  ],
+  "hostTemplates": {
+    "items": []
+  },
+  "hosts": [
+    {
+      "config": {
+        "items": []
+      },
+      "hostId": "REPLACE_CMSERVER_ID",
+      "hostname": "REPLACE_CMSERVER_HOSTNAME",
+      "ipAddress": "REPLACE_CMSERVER_IP",
+      "rackId": "/default"
+    },
+    {
+      "config": {
+        "items": []
+      },
+      "hostId": "REPLACE_CMAGENT_ID1",
+      "hostname": "REPLACE_CMAGENT_HOSTNAME1",
+      "ipAddress": "REPLACE_CMAGENT_IP1",
+      "rackId": "/default"
+    },
+    {
+      "config": {
+        "items": []
+      },
+      "hostId": "REPLACE_CMAGENT_ID2",
+      "hostname": "REPLACE_CMAGENT_HOSTNAME2",
+      "ipAddress": "REPLACE_CMAGENT_IP2",
+      "rackId": "/default"
+    }
+  ],
+  "managementService": {
+    "config": {
+      "items": []
+    },
+    "displayName": "Cloudera Management Service",
+    "name": "mgmt",
+    "roleConfigGroups": [
+      {
+        "base": true,
+        "config": {
+          "items": []
+        },
+        "displayName": "Activity Monitor Base Group",
+        "name": "mgmt-ACTIVITYMONITOR-BASE",
+        "roleType": "ACTIVITYMONITOR",
+        "serviceRef": {
+          "serviceName": "mgmt"
+        }
+      },
+      {
+        "base": true,
+        "config": {
+          "items": []
+        },
+        "displayName": "Alert Publisher Base Group",
+        "name": "mgmt-ALERTPUBLISHER-BASE",
+        "roleType": "ALERTPUBLISHER",
+        "serviceRef": {
+          "serviceName": "mgmt"
+        }
+      },
+      {
+        "base": true,
+        "config": {
+          "items": [
+            {
+              "name": "event_server_heapsize",
+              "value": "268435456"
+            }
+          ]
+        },
+        "displayName": "Event Server Base Group",
+        "name": "mgmt-EVENTSERVER-BASE",
+        "roleType": "EVENTSERVER",
+        "serviceRef": {
+          "serviceName": "mgmt"
+        }
+      },
+      {
+        "base": true,
+        "config": {
+          "items": [
+            {
+              "name": "firehose_heapsize",
+              "value": "536870912"
+            },
+            {
+              "name": "firehose_non_java_memory_bytes",
+              "value": "805306368"
+            }
+          ]
+        },
+        "displayName": "Host Monitor Base Group",
+        "name": "mgmt-HOSTMONITOR-BASE",
+        "roleType": "HOSTMONITOR",
+        "serviceRef": {
+          "serviceName": "mgmt"
+        }
+      },
+      {
+        "base": true,
+        "config": {
+          "items": []
+        },
+        "displayName": "Navigator Audit Server Base Group",
+        "name": "mgmt-NAVIGATOR-BASE",
+        "roleType": "NAVIGATOR",
+        "serviceRef": {
+          "serviceName": "mgmt"
+        }
+      },
+      {
+        "base": true,
+        "config": {
+          "items": []
+        },
+        "displayName": "Navigator Metadata Server Base Group",
+        "name": "mgmt-NAVIGATORMETASERVER-BASE",
+        "roleType": "NAVIGATORMETASERVER",
+        "serviceRef": {
+          "serviceName": "mgmt"
+        }
+      },
+      {
+        "base": true,
+        "config": {
+          "items": []
+        },
+        "displayName": "Reports Manager Base Group",
+        "name": "mgmt-REPORTSMANAGER-BASE",
+        "roleType": "REPORTSMANAGER",
+        "serviceRef": {
+          "serviceName": "mgmt"
+        }
+      },
+      {
+        "base": true,
+        "config": {
+          "items": [
+            {
+              "name": "firehose_heapsize",
+              "value": "536870912"
+            },
+            {
+              "name": "firehose_non_java_memory_bytes",
+              "value": "805306368"
+            }
+          ]
+        },
+        "displayName": "Service Monitor Base Group",
+        "name": "mgmt-SERVICEMONITOR-BASE",
+        "roleType": "SERVICEMONITOR",
+        "serviceRef": {
+          "serviceName": "mgmt"
+        }
+      }
+    ],
+    "roles": [
+      {
+        "config": {
+          "items": []
+        },
+        "hostRef": {
+          "hostId": "REPLACE_CMSERVER_ID"
+        },
+        "name": "mgmt-ALERTPUBLISHER",
+        "roleConfigGroupRef": {
+          "roleConfigGroupName": "mgmt-ALERTPUBLISHER-BASE"
+        },
+        "type": "ALERTPUBLISHER"
+      },
+      {
+        "config": {
+          "items": []
+        },
+        "hostRef": {
+          "hostId": "REPLACE_CMSERVER_ID"
+        },
+        "name": "mgmt-EVENTSERVER",
+        "roleConfigGroupRef": {
+          "roleConfigGroupName": "mgmt-EVENTSERVER-BASE"
+        },
+        "type": "EVENTSERVER"
+      },
+      {
+        "config": {
+          "items": []
+        },
+        "hostRef": {
+          "hostId": "REPLACE_CMSERVER_ID"
+        },
+        "name": "mgmt-HOSTMONITOR",
+        "roleConfigGroupRef": {
+          "roleConfigGroupName": "mgmt-HOSTMONITOR-BASE"
+        },
+        "type": "HOSTMONITOR"
+      },
+      {
+        "config": {
+          "items": []
+        },
+        "hostRef": {
+          "hostId": "REPLACE_CMSERVER_ID"
+        },
+        "name": "mgmt-SERVICEMONITOR",
+        "roleConfigGroupRef": {
+          "roleConfigGroupName": "mgmt-SERVICEMONITOR-BASE"
+        },
+        "type": "SERVICEMONITOR"
+      }
+    ],
+    "type": "MGMT"
+  },
+  "managerSettings": {
+    "items": []
+  },
+  "peers": [],
+  "users": [
+    {
+      "name": "admin",
+      "pwHash": "afa3229f7162f49cc9ff7aba1c784d79acfc7ba95f39b0babb1dffd8e69327ff",
+      "pwLogin": true,
+      "pwSalt": 7861531144285575000,
+      "roles": [
+        "ROLE_ADMIN"
+      ]
+    }
+  ]
+}
