@@ -11,7 +11,7 @@ In summary, I want such a Hadoop cluster that,
 * the cluster is generic and standard enough in the sense after I verify my application code against it, it takes minimal modifications to against production clusters,
 * it doesn't need to be ready for performance testing or production usage.
 
-Finally I decide to build one for myself, this is [__Arena-dev-cdh-hadoop__](arena-dev-cdh-hadoop-github): a three-node (yes, only 3, no more and no less) CDH Hadoop cluster running on your local Mac machine.
+Finally I decide to build one for myself, this is Arena-dev-cdh-hadoop: a three-node (yes, only 3, no more and no less) CDH Hadoop cluster running on your local Mac machine.
 
 I decide to open source it and hope it is in any help for you.
 
