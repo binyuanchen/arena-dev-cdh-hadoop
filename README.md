@@ -12,4 +12,4 @@ Some highlight of such a cluster,
 
 With such a cluster, you no longer worry about confusions caused when your application code writes into a Jenkins or automation testing Hadoop cluster which is shared by automation tests.
 
-To see how to create such a cluster, refer to blog at: https://binyuanchen.github.io/posts/update/2017/04/01/introduction-to-arena-dev-cdh-hadoop.html
+To see how to create such a cluster, refer to wiki at: https://github.com/binyuanchen/arena-dev-cdh-hadoop/wiki
