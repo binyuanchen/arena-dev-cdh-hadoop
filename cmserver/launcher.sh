@@ -52,17 +52,17 @@ function waitcm()
 function startcm()
 {
     # the cm core agents, this list is for the server, not for agent
-    /etc/init.d/cloudera-scm-server-db start
-    /etc/init.d/cloudera-scm-server start
-    /etc/init.d/cloudera-scm-agent start
+    cloudera-scm-server-db start
+    cloudera-scm-server start
+    #cloudera-scm-agent start
 }
 
 function stopcm()
 {
     # the cm core agents, this list is for the server, not for agent
-    /etc/init.d/cloudera-scm-agent stop
-    /etc/init.d/cloudera-scm-server stop
-    /etc/init.d/cloudera-scm-server-db stop
+    #cloudera-scm-agent stop
+    cloudera-scm-server stop
+    cloudera-scm-server-db stop
 }
 
 function restart_cm_services()

@@ -37,7 +37,11 @@ RUN yum clean all && \
     echo "root:root" | chpasswd && \
     mkdir /var/log/supervisor && \
     ln -s /usr/lib64/cmf/agent/build/env/bin/supervisorctl /usr/bin/supervisorctl && \
-    ln -s /usr/lib64/cmf/agent/build/env/bin/supervisord /usr/bin/supervisord
+    ln -s /usr/lib64/cmf/agent/build/env/bin/supervisord /usr/bin/supervisord && \
+    rm -rf /etc/security/limits.d/cloudera-scm*.conf && \
+    ln -s /etc/init.d/cloudera-scm-server-db /usr/sbin/cloudera-scm-server-db && \
+    ln -s /etc/init.d/cloudera-scm-server /usr/sbin/cloudera-scm-server && \
+    ln -s /etc/init.d/cloudera-scm-agent /usr/sbin/cloudera-scm-agent
 
 ADD checkdisk.sh /usr/local/bin/
 ADD supervisord.conf /etc/

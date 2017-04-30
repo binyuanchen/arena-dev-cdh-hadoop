@@ -44,7 +44,11 @@ RUN yum clean all && \
     mkdir /var/log/supervisor && \
     ln -s /usr/lib64/cmf/agent/build/env/bin/supervisorctl /usr/bin/supervisorctl && \
     ln -s /usr/lib64/cmf/agent/build/env/bin/supervisord /usr/bin/supervisord && \
-    mkdir /cmserverscripts
+    mkdir /cmserverscripts && \
+    rm -rf /etc/security/limits.d/cloudera-scm*.conf && \
+    ln -s /etc/init.d/cloudera-scm-server-db /usr/sbin/cloudera-scm-server-db && \
+    ln -s /etc/init.d/cloudera-scm-server /usr/sbin/cloudera-scm-server && \
+    ln -s /etc/init.d/cloudera-scm-agent /usr/sbin/cloudera-scm-agent
 
 ADD supervisord.conf /etc/
 ADD launcher.sh /cmserverscripts/
