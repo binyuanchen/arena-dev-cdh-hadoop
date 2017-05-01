@@ -14,7 +14,7 @@ ENV TERM=xterm
 RUN yum clean all && \
     yum update -y && \
     yum install -y openssh-server openssh-clients sudo tar unzip vim wget epel-release && \
-    yum install -y krb5-libs krb5-workstation net-tools ntp openldap-clients python-pip haveged xmlstarlet jq nc telnet sshfs mlocate lsof && \
+    yum install -y krb5-libs krb5-workstation net-tools ntp openldap-clients python-pip xmlstarlet jq nc telnet sshfs mlocate lsof && \
     yum install -y nmap && \
     wget --progress=dot:giga -O /tmp/jdk-$JDK_VERSION-x64.rpm --no-cookies --no-check-certificate -c \
         --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" $JDK_RPM_URL && \
