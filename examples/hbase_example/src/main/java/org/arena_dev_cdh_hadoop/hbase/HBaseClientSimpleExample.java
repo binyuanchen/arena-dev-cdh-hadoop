@@ -6,7 +6,11 @@ import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.hadoop.security.authentication.util.KerberosName;
 
 /**
- * Create a HBase namespace, a table in it, 1 column families, with 3 column qualifiers.
+ * To run this example from command line using maven:
+ *
+ * mvn exec:java -DHADOOP_USER_NAME=appadmin -Dexec.mainClass=org.arena_dev_cdh_hadoop.hbase.HBaseClientSimpleExample
+ *
+ * This example creates a HBase namespace, a table in it, 1 column families, with 3 column qualifiers.
  * <p>
  * Write 100 records, and read them out.
  */
