@@ -1,0 +1,23 @@
+
+# create db if not exists, o/w skip it
+
+info=$(kdb5_util list_mkeys)
+rc=$?
+if [[ $rc != 0 ]]; then
+  echo "Not found db, will create it."
+  kdb5_util create -s -P 123456
+  echo "db is created."
+else
+  echo "db exists, its mkeys:"
+  echo "$info"
+fi
+
+
+# start services
+
+krb5kdc start
+
+kadmind
+
+# execute this command
+kadmin.local addprinc -pw 123456 cloudera-scm/admin@EXAMPLE.COM

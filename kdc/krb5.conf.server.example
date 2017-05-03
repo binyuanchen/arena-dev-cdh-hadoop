@@ -1,0 +1,24 @@
+[logging]
+ default = FILE:/var/log/krb5libs.log
+ kdc = FILE:/var/log/krb5kdc.log
+ admin_server = FILE:/var/log/kadmind.log
+
+[libdefaults]
+ dns_lookup_realm = false
+ dns_lookup_kdc = false
+ renew_lifetime = 3d
+ forwardable = true
+ rdns = false
+ default_realm = EXAMPLE.COM
+
+[realms]
+ EXAMPLE.COM = {
+  kdc = kdc.net1
+  admin_server = kdc.net1
+ }
+
+[domain_realm]
+ .example.com = EXAMPLE.COM
+ example.com = EXAMPLE.COM
+ .net1 = EXAMPLE.COM
+ net1 = EXAMPLE.COM

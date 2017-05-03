@@ -1,0 +1,9 @@
+[libdefaults]
+
+[realms]
+ EXAMPLE.COM = {
+  acl_file = /var/lib/krb5kdc/kadm5.acl
+  max_life = 48h 0m 0s
+  max_renewable_life = 5d 0h 0m 0s
+  default_principal_flags = +renewable
+ }
