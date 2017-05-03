@@ -4,7 +4,7 @@ MAINTAINER Binyuan Chen "binyuanchen@gmail.com"
 
 ENV KRB5_KDC_PROFILE /usr/local/var/krb5kdc/kdc.conf
 
-RUN apk add --update drill krb5-server haveged openrc && \
+RUN apk add --update drill krb5-server openrc && \
     rm -rf /var/cache/apk/* && \
     # configure and run the openrc service as pid 1
     mkdir -p /etc/apk && echo "http://alpine.gliderlabs.com/alpine/v3.3/main" > /etc/apk/repositories && \
@@ -23,8 +23,6 @@ RUN apk add --update drill krb5-server haveged openrc && \
     sed -i 's/cgroup_add_service /# cgroup_add_service /g' /lib/rc/sh/openrc-run.sh && \
     # this needs --privileged=true to run this container, this actually writes to host env
     #echo 2048 > /proc/sys/kernel/random/write_wakeup_threshold && \
-    # add haveged as daemon service at 'default' runlevel
-    rc-update add haveged default && \
     # add the local service kdc_init_service.start defined above
     rc-update add local default
     # can not do below as kdb create must happen before them
