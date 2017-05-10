@@ -316,6 +316,49 @@ class CMClusterDeployer(object):
         else:
             raise RuntimeError('stop_cm - failed.')
 
+    def import_kerberos_admin_credentials(self, kadmin_username=None, kadmin_password=None):
+        print 'import_kerberos_admin_credentials - BEGIN'
+        api_url = 'http://%s/api/%s/cm/commands/importAdminCredentials?username=%s&password=%s' \
+                  % (self.cm_api_entrypoint, self.cm_api_version, kadmin_username, kadmin_password)
+        cmd = self.rest_util.post(url=api_url)
+        cmd_status = self._wait_for_command_finish(cmd['id'])
+        if cmd_status:
+            print 'import_kerberos_admin_credentials - DONE'
+        else:
+            raise RuntimeError('import_kerberos_admin_credentials - failed.')
+
+    def deploy_kerberos_client_config(self, cluster_name=None):
+        '''
+        Deploy the Cluster's Kerberos client configuration.
+        Deploy krb5.conf to hosts in a cluster.
+        Does not deploy to decommissioned hosts or hosts with active processes.
+        '''
+        print 'deploy_kerberos_client_config - BEGIN'
+        api_url = 'http://%s/api/%s/clusters/%s/commands/deployClusterClientConfig' % \
+                  (self.cm_api_entrypoint, self.cm_api_version, cluster_name)
+        cmd = self.rest_util.post(url=api_url)
+        cmd_status = self._wait_for_command_finish(cmd['id'])
+        if cmd_status:
+            print 'deploy_kerberos_client_config - DONE'
+        else:
+            raise RuntimeError('deploy_kerberos_client_config - failed')
+
+    def configure_cluster_for_kerberos(self, cluster_name=None):
+        '''
+        Command to configure the cluster to use Kerberos for authentication.
+        This command will configure all relevant services on a cluster for Kerberos usage.
+        This command will trigger a GenerateCredentials command to create Kerberos keytabs for all roles in the cluster.
+        '''
+        print 'configure_cluster_for_kerberos - BEGIN'
+        api_url = 'http://%s/api/%s/clusters/%s/commands/configureForKerberos' % \
+                  (self.cm_api_entrypoint, self.cm_api_version, cluster_name)
+        cmd = self.rest_util.post(url=api_url)
+        cmd_status = self._wait_for_command_finish(cmd['id'])
+        if cmd_status:
+            print 'configure_cluster_for_kerberos - DONE'
+        else:
+            raise RuntimeError('configure_cluster_for_kerberos - failed.')
+
     def start_cluster(self, cluster_name=None):
         '''start all services in cluster'''
         print 'start_cluster - BEGIN'
@@ -338,16 +381,14 @@ if __name__ == '__main__':
         '4' : 'distribute_parcel_on_cluster',
         '5' : 'activate_parcel_on_cluster',
         '6' : 'upload_cluster_config',
-        '7': 'start_cm',
-        '8': 'firstrun_cluster',
-        '9': 'prepare_dir_group_user_ssh',
-        '10': 'deploy_client_config',
+        '7' : 'import_kerberos_admin_credentials',
+        '8' : 'deploy_kerberos_client_config',
+        '9' : 'configure_cluster_for_kerberos',
+        '10': 'start_cm',
+        '11': 'firstrun_cluster',
+        '12': 'prepare_dir_group_user_ssh',
+        '13': 'deploy_client_config',
     }
-
-    ##########
-    # TODO
-    # the upload_cluster_config must comes after the parcel operations
-    ##########
 
     parser = optparse.OptionParser(usage="Usage : %prog [options]")
     parser.add_option('--cm_user', type=str, help='cm admin username')
@@ -407,7 +448,8 @@ if __name__ == '__main__':
         sys.exit(1)
 
     if not opts.config_file_location:
-        opts.config_file_location = './config_2.json'
+        parser.print_help()
+        sys.exit(1)
 
     if not opts.substitution_file_location:
         opts.substitution_file_location = './substitution.json'
@@ -502,7 +544,7 @@ if __name__ == '__main__':
     # 6. upload the cluster config to cm
     ##################################################
     # this is a workaround to prepare substitution variables only available
-    # after partially created the cluster, as such, they can not be specific
+    # after partially created the cluster, as such, they can not be specified
     # statically in the substitution file
     # TODO make this generic probably in the substitution file as scripts
     substitution_runtime={}
@@ -532,7 +574,35 @@ if __name__ == '__main__':
             sys.exit(0)
 
     ##################################################
-    # 7. start cm services
+    # 7. import kdc admin credentials
+    ##################################################
+    if opts.authnz == 'kerberos':
+        if not ns or ns.contains(7):
+            cm_cluster_deployer.import_kerberos_admin_credentials(
+                kadmin_username=opts.kadmin_username, kadmin_password=opts.kadmin_password)
+            if ns and ns.below(7):
+                sys.exit(0)
+
+    ##################################################
+    # 8. deploy kerberos client config
+    ##################################################
+    if opts.authnz == 'kerberos':
+        if not ns or ns.contains(8):
+            cm_cluster_deployer.deploy_kerberos_client_config(cluster_name=opts.cluster_name)
+            if ns and ns.below(8):
+                sys.exit(0)
+
+    ##################################################
+    # 9. configure cluster for kerberos mode
+    ##################################################
+    if opts.authnz == 'kerberos':
+        if not ns or ns.contains(9):
+            cm_cluster_deployer.configure_cluster_for_kerberos(cluster_name=opts.cluster_name)
+            if ns and ns.below(9):
+                sys.exit(0)
+
+    ##################################################
+    # 10. start cm services
     ##################################################
     if not ns or ns.contains(10):
         # TODO remove this workaround, see https://community.cloudera.com/t5/Cloudera-Manager-Installation/Where-does-Cloudera-Manager-store-generated-keytabs-and/td-p/16314
@@ -543,7 +613,7 @@ if __name__ == '__main__':
             sys.exit(0)
 
     ##################################################
-    # 8. first run
+    # 11. first run
     ##################################################
     if not ns or ns.contains(11):
         cm_cluster_deployer.firstrun_cluster(cluster_name=opts.cluster_name)
@@ -551,7 +621,7 @@ if __name__ == '__main__':
             sys.exit(0)
 
     ##################################################
-    # 9. setup supergroup, application specific superuser and permissions on hdfs
+    # 12. setup supergroup, application specific superuser and permissions on hdfs
     ##################################################
     all_hostnames = []
     all_hostnames.append(opts.cmserver)
@@ -568,7 +638,7 @@ if __name__ == '__main__':
             sys.exit(0)
 
     ##################################################
-    # 10. deploy client config
+    # 13. deploy client config
     ##################################################
     if not ns or ns.contains(13):
         cm_cluster_deployer.deploy_client_config(cluster_name=opts.cluster_name)
