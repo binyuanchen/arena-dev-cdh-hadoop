@@ -1,10 +1,10 @@
 FROM centos:centos7
 MAINTAINER Binyuan Chen "binyuanchen@gmail.com"
 
-ENV JDK_VERSION 1.8.0_60
-ENV JDK_RPM_URL http://download.oracle.com/otn-pub/java/jdk/8u60-b26/jdk-8u60-linux-x64.rpm
+ENV JDK_VERSION 1.8.0_131
+ENV JDK_RPM_URL http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm
 ENV JCE_URL http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip
-ENV CDH_VERSION 5.7.1
+ENV CDH_VERSION 5.8.3
 ENV TERM=xterm
 
 # Package installation
@@ -14,7 +14,7 @@ RUN yum clean all && \
     yum install -y krb5-libs krb5-workstation net-tools ntp openldap-clients python-pip xmlstarlet jq nc telnet sshfs mlocate lsof && \
     yum install -y nmap && \
     wget --progress=dot:giga -O /tmp/jdk-$JDK_VERSION-x64.rpm --no-cookies --no-check-certificate -c \
-        --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" $JDK_RPM_URL && \
+        --header "Cookie: oraclelicense=accept-securebackup-cookie" $JDK_RPM_URL && \
     rpm -Uhv /tmp/jdk-$JDK_VERSION-x64.rpm && rm -f /tmp/jdk-$JDK_VERSION-x64.rpm && \
     wget --progress=dot:giga -O /tmp/JCE.zip --no-cookies --no-check-certificate -c \
         --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" $JCE_URL && \

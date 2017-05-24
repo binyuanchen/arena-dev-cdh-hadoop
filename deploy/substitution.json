@@ -1,9 +1,9 @@
 {
-  "REPLACE_CDH_PARCEL_REPO": "https://archive.cloudera.com/cdh5/parcels/5.7.1/",
+  "REPLACE_CDH_PARCEL_REPO": "https://archive.cloudera.com/cdh5/parcels/5.8.3/",
   "REPLACE_CLUSTER_DISPLAY_NAME": "Cluster1",
   "REPLACE_CDH_VERSION": "CDH5",
-  "REPLACE_FULLCDHVERSION": "5.7.1",
-  "REPLACE_PARCELNAME": "5.7.1-1.cdh5.7.1.p0.11",
+  "REPLACE_FULLCDHVERSION": "5.8.3",
+  "REPLACE_PARCELNAME": "5.8.3-1.cdh5.8.3.p0.2",
   "REPLACE_CMSERVER_HOSTNAME": "cmc1.net1",
   "REPLACE_CMAGENT_HOSTNAME1": "cmc2.net1",
   "REPLACE_CMAGENT_HOSTNAME2": "cmc3.net1",
